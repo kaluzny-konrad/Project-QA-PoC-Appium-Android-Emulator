@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  appium_android_device:
+    image: appium/appium:latest
+    ports:
+      - "4723:4723"
+    privileged: true
+    shm_size: 2gb
+    volumes:
+      - /dev/bus/usb:/dev/bus/usb
+      - ~/.android:/root/.android
