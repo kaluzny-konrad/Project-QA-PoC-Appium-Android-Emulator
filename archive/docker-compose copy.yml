@@ -2,8 +2,11 @@ version: '3'
 
 services:
   selenium_hub:
-    image: selenium/hub:3.141.59-antimony
+    image: selenium/hub:latest
+    # image: selenium/hub:3.141.59-antimony
     ports:
+      # - "4442:4442"
+      # - "4443:4443"
       - "4444:4444"
     environment:
       - GRID_BROWSER_TIMEOUT=60000
@@ -22,8 +25,14 @@ services:
     volumes:
       - /dev/bus/usb:/dev/bus/usb
       - ~/.android:/root/.android
+      #- ~/.android:/home/androidusr/.android
     environment:
       - CONNECT_TO_GRID=true
+      # - APPIUM_HOST='127.0.0.1'
+      - APPIUM_PORT=4723
       - SELENIUM_HOST=selenium_hub
-      - SELENIUM_PORT=4444
+      # - SELENIUM_PORT=4444
       - APPIUM_ADDITIONAL_PARAMS=--base-path /wd/hub
+      # Enable it for msite testing
+      #- BROWSER_NAME=chrome
+
