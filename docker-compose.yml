@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  android_emulator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    devices:
+      - /dev/kvm
+    ports:
+      - 5037:5037
+    privileged: true
+    networks:
+      - appium_network
+
+  appium_android_device:
+    image: appium/appium:latest
+    ports:
+      - 4723:4723
+    privileged: true
+    shm_size: 2gb
+    volumes:
+      - /dev/bus/usb:/dev/bus/usb
+      - ~/.android:/root/.android
+    networks:
+      - appium_network
+
+networks:
+  appium_network:
+    driver: bridge
