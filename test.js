@@ -1,5 +1,8 @@
 const {remote} = require('webdriverio');
 
+let timeBefore;
+let timeAfter;
+
 const capabilities = {
   platformName: 'Android',
   'appium:automationName': 'UiAutomator2',
@@ -11,12 +14,12 @@ const capabilities = {
 const wdOpts = {
   host: process.env.APPIUM_HOST || 'localhost',
   port: parseInt(process.env.APPIUM_PORT, 10) || 4723,
-  path: '/wd/hub',
   logLevel: 'info',
   capabilities,
 };
 
 async function runTest() {
+  timeBefore = Date.now();
   const driver = await remote(wdOpts);
   try {
     const batteryItem = await driver.$('//*[@text="Battery"]');
@@ -24,6 +27,8 @@ async function runTest() {
   } finally {
     await driver.pause(1000);
     await driver.deleteSession();
+    timeAfter = Date.now();
+    console.log(`Time taken: ${timeAfter - timeBefore}ms`);
   }
 }
 

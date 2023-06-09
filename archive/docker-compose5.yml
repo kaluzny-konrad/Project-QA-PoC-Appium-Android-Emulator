@@ -8,22 +8,24 @@ services:
     devices:
       - /dev/kvm
     ports:
-      - 5555:5555
-      - 5554:5554
       - 5037:5037
     privileged: true
     networks:
       - appium_network
 
-  appium_container:
-    image: appium/appium
+  appium_android_device:
+    image: appium/appium:latest
     ports:
       - 4723:4723
+    privileged: true
+    shm_size: 2gb
+    volumes:
+      - /dev/kvm
+      - /dev/bus/usb:/dev/bus/usb
+      - ~/.android:/root/.android
+    
     networks:
       - appium_network
-    depends_on:
-      - android_emulator
-    privileged: true
 
 networks:
   appium_network:
