@@ -1,3 +1,5 @@
+# WORKING: NO
+
 FROM openjdk:8
 
 ENV SDK_URL="https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip" \

@@ -1,0 +1,16 @@
+# Working: NO
+
+version: '3'
+
+services:
+  android_emulator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    devices:
+      - /dev/kvm
+    ports:
+      - 5555:5555
+      - 5554:5554
+      - 5037:5037
+    privileged: true

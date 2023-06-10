@@ -1,8 +1,11 @@
+# Working: NO
+
 version: '3'
 
 services:
   selenium_hub:
-    image: selenium/hub:3.141.59-antimony
+    image: selenium/hub:4.10.0-20230607
+    container_name: selenium-hub
     ports:
       - "4444:4444"
     environment:
@@ -17,13 +20,14 @@ services:
     image: appium/appium:latest
     shm_size: 2gb
     depends_on:
-      - selenium_hub
+      - selenium-hub
     privileged: true
     volumes:
       - /dev/bus/usb:/dev/bus/usb
       - ~/.android:/root/.android
     environment:
       - CONNECT_TO_GRID=true
-      - SELENIUM_HOST=selenium_hub
-      - SELENIUM_PORT=4444
+      - APPIUM_PORT=4723
+      - SELENIUM_HOST=selenium-hub
       - APPIUM_ADDITIONAL_PARAMS=--base-path /wd/hub
+

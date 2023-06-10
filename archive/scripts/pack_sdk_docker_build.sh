@@ -1,1 +1,0 @@
-docker build -t android_emu -f ./scripts/PackSdkDockerfile .

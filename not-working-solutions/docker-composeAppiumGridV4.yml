@@ -1,10 +1,14 @@
+# Working: NO
+
 version: '3'
 
 services:
   selenium_hub:
-    image: selenium/hub:4.10.0-20230607
-    container_name: selenium-hub
+    image: selenium/hub:latest
+    # image: selenium/hub:3.141.59-antimony
     ports:
+      # - "4442:4442"
+      # - "4443:4443"
       - "4444:4444"
     environment:
       - GRID_BROWSER_TIMEOUT=60000
@@ -18,14 +22,19 @@ services:
     image: appium/appium:latest
     shm_size: 2gb
     depends_on:
-      - selenium-hub
+      - selenium_hub
     privileged: true
     volumes:
       - /dev/bus/usb:/dev/bus/usb
       - ~/.android:/root/.android
+      #- ~/.android:/home/androidusr/.android
     environment:
       - CONNECT_TO_GRID=true
+      # - APPIUM_HOST='127.0.0.1'
       - APPIUM_PORT=4723
-      - SELENIUM_HOST=selenium-hub
+      - SELENIUM_HOST=selenium_hub
+      # - SELENIUM_PORT=4444
       - APPIUM_ADDITIONAL_PARAMS=--base-path /wd/hub
+      # Enable it for msite testing
+      #- BROWSER_NAME=chrome
 

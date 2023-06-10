@@ -1,3 +1,5 @@
+# WORKING: NO
+
 # Pobieranie obrazu bazowego
 FROM ubuntu:latest
 
